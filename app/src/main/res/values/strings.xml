@@ -1,3 +1,11 @@
 <resources>
-    <string name="app_name">MonsterlabTestTask</string>
+    <string name="app_name">MonsterTestTask</string>
+
+    <!-- SIGN-UP -->
+    <string name="later">later</string>
+    <string name="create_an_account">Create an account</string>
+    <string name="already_have_an_account">Already have an account?</string>
+    <string name="continue_with_google">Continue with Google</string>
+    <string name="continue_with_facebook">Continue with Facebook</string>
+    <string name="continue_with_apple">Continue with Apple</string>
 </resources>

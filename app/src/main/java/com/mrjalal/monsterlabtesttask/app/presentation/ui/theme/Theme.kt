@@ -1,4 +1,4 @@
-package com.mrjalal.monsterlabtesttask.app.ui.theme
+package com.mrjalal.monsterlabtesttask.app.presentation.ui.theme
 
 import android.app.Activity
 import android.os.Build
