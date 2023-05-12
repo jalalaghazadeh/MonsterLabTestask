@@ -1,7 +1,7 @@
 package com.mrjalal.monsterlabtesttask.signup.data.repository
 
 import com.mrjalal.monsterlabtesttask.core.di.qualifier.IoDispatcher
-import com.mrjalal.monsterlabtesttask.signup.data.dataSource.remote.UserRemoteDataSource
+import com.mrjalal.monsterlabtesttask.signup.data.dataSource.remote.signUp.UserRemoteDataSource
 import com.mrjalal.monsterlabtesttask.signup.domain.repository.UserRepository
 import dagger.hilt.android.scopes.ViewModelScoped
 import kotlinx.coroutines.CoroutineDispatcher
@@ -13,9 +13,17 @@ class UserRepositoryImpl @Inject constructor(
     private val userRemoteDataSource: UserRemoteDataSource,
     @IoDispatcher private val ioDispatcher: CoroutineDispatcher,
 ) : UserRepository {
-    override suspend fun signUp(email: String, password: String): Result<Int> {
+    override suspend fun signUp(email: String, password: String, responseCode: Int): Result<Int> {
         return withContext(ioDispatcher) {
-            userRemoteDataSource.signUp(email, password)
+            try {
+                val token = userRemoteDataSource.signUp(email, password, responseCode)
+
+                // TODO: store token using data-store
+
+                Result.success(200)
+            } catch(httpException: Exception) {
+                Result.failure(httpException)
+            }
         }
     }
 }

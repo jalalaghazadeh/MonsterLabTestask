@@ -2,6 +2,7 @@ package com.mrjalal.monsterlabtesttask.signup.presentation
 
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
+import com.mrjalal.monsterlabtesttask.core.presentation.Screen
 import com.mrjalal.monsterlabtesttask.signup.domain.usecase.SignUpUseCase
 import com.mrjalal.monsterlabtesttask.signup.presentation.model.SignUpUiState
 import dagger.hilt.android.lifecycle.HiltViewModel
@@ -32,9 +33,11 @@ class SignUpViewModel @Inject constructor(
         val password = _uiState.value.password
 
         viewModelScope.launch {
-            when (signUpUseCase.execute(email, password)) {
-                // is success
-                // is failure
+            val response = signUpUseCase.execute(email, password, 200)
+            if(response.isSuccess) {
+                onNavigate(Screen.Home.route)
+            } else {
+                // TODO: show snackbar based on Error
             }
         }
     }

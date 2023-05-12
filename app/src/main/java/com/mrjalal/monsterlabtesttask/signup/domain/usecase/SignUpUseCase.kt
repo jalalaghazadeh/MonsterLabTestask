@@ -24,13 +24,13 @@ class SignUpUseCase @Inject constructor(
         return passwordRegex.matches(password)
     }
 
-    suspend fun execute(email: String, password: String): Result<Int> {
+    suspend fun execute(email: String, password: String, responseCode: Int): Result<Int> {
         if (!validateEmail(email)) {
             return Result.failure(Exception("Invalid email address"))
         }
         if (!validatePassword(password)) {
             return Result.failure(Exception("Invalid password"))
         }
-        return userRepository.signUp(email, password)
+        return userRepository.signUp(email, password, responseCode)
     }
 }
