@@ -10,6 +10,9 @@
     <string name="continue_with_apple">Continue with Apple</string>
     <string name="email_address">Email Address</string>
     <string name="Password">Password</string>
-    <string name="choose_signup_result">Choose signUp result</string>
+    <string name="choose_signup_result">Choose SignUp Result</string>
+
+    <!-- HOME -->
+    <string name="home">Home</string>
 
 </resources>

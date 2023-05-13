@@ -40,8 +40,7 @@ fun CustomTextField(
     )
 
     val roundedRectangleShape = RoundedCornerShape(8.dp)
-
-
+    
     TextField(
         value = value,
         onValueChange = onValueChange,
@@ -60,7 +59,5 @@ fun CustomTextField(
         shape = roundedRectangleShape,
         singleLine = true,
         maxLines = 1,
-        isError = true
     )
-
 }

@@ -15,6 +15,7 @@ fun MonsterLabApp(
 
     val navController = rememberNavController()
 
+    val onBack: () -> Unit = { navController.navigateUp() }
     val onNavigateToScreen = { route: String -> navController.navigate(route) }
 
     NavHost(
@@ -25,7 +26,7 @@ fun MonsterLabApp(
             SignUpScreen(onNavigate = onNavigateToScreen, onCloseApp = onCloseApp)
         }
         composable(Screen.Home.route) {
-            HomeScreen()
+            HomeScreen(onBack)
         }
     }
 }

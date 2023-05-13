@@ -51,7 +51,7 @@ fun CustomButton(
             .then(modifier),
         shape = roundedRectangleShape,
         colors = buttonColors,
-        enabled = isEnable
+        enabled = isEnable && !isLoading
     ) {
         Row(verticalAlignment = Alignment.CenterVertically) {
             if(isLoading) {
