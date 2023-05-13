@@ -9,6 +9,7 @@ import androidx.compose.foundation.layout.width
 import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.material3.Button
 import androidx.compose.material3.ButtonDefaults
+import androidx.compose.material3.CircularProgressIndicator
 import androidx.compose.material3.Icon
 import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.Text
@@ -31,6 +32,7 @@ fun CustomButton(
     backgroundColor: Color = MaterialTheme.colorScheme.primary,
     tintColor: Color = Color.Black,
     isEnable: Boolean = true,
+    isLoading: Boolean = false,
 ) {
 
     val defaultHeight = 52.dp
@@ -52,19 +54,26 @@ fun CustomButton(
         enabled = isEnable
     ) {
         Row(verticalAlignment = Alignment.CenterVertically) {
-            iconId?.let {
-                Icon(
-                    painter = painterResource(it),
-                    contentDescription = iconDescription,
-                    tint = tintColor,
-                    modifier = Modifier.size(24.dp)
+            if(isLoading) {
+                CircularProgressIndicator(
+                    modifier = Modifier.size(24.dp),
+                    color = tintColor
                 )
-            }
-            if(iconId != null && buttonText != null) {
-                Spacer(modifier = Modifier.width(8.dp))
-            }
-            buttonText?.let {
-                Text(text = it, style = buttonTextStyle)
+            } else {
+                iconId?.let {
+                    Icon(
+                        painter = painterResource(it),
+                        contentDescription = iconDescription,
+                        tint = tintColor,
+                        modifier = Modifier.size(24.dp)
+                    )
+                }
+                if (iconId != null && buttonText != null) {
+                    Spacer(modifier = Modifier.width(8.dp))
+                }
+                buttonText?.let {
+                    Text(text = it, style = buttonTextStyle)
+                }
             }
         }
     }

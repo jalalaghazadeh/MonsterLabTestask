@@ -31,6 +31,8 @@ class SignUpViewModel @Inject constructor(
 
     internal fun onButtonPressed(onNavigate: (String) -> Unit) {
 
+        updateButtonLoading(true)
+
         val email = _uiState.value.email
         val password = _uiState.value.password
         val responseCode = _uiState.value.httpCode
@@ -40,20 +42,20 @@ class SignUpViewModel @Inject constructor(
             if (response.isSuccess) {
                 onNavigate(Screen.Home.route)
             } else {
-
-                val message = when((response.exceptionOrNull() as HttpCodeException).errorCode) {
+                val message = when ((response.exceptionOrNull() as HttpCodeException).errorCode) {
                     403 -> "You don't have permission to register"
                     else -> "Something went wrong :("
                 }
                 updateUiState(alertMessage = message)
             }
+            updateButtonLoading(false)
         }
     }
 
     internal fun onHttpResponseSheetItemPressed(item: HttpResponseItem) {
         updateUiState(
             httpCode = item.code,
-            sheetList = updateSheetList(item)
+            sheetList = getUpdatedSheetList(item)
         )
     }
 
@@ -67,6 +69,7 @@ class SignUpViewModel @Inject constructor(
         httpCode: Int = _uiState.value.httpCode,
         sheetList: List<HttpResponseItem> = _uiState.value.sheetList,
         alertMessage: String? = _uiState.value.alertMessage,
+        isButtonLoading: Boolean = _uiState.value.isButtonLoading,
     ) {
         val isEmailValid = signUpUseCase.validateEmail(email)
         val isPasswordValid = signUpUseCase.validatePassword(password)
@@ -78,13 +81,18 @@ class SignUpViewModel @Inject constructor(
             httpCode = httpCode,
             sheetList = sheetList,
             alertMessage = alertMessage,
+            isButtonLoading = isButtonLoading,
         )
         viewModelScope.launch { _uiState.emit(newUiState) }
     }
 
-    private fun updateSheetList(item: HttpResponseItem): List<HttpResponseItem> {
+    private fun getUpdatedSheetList(item: HttpResponseItem): List<HttpResponseItem> {
         return _uiState.value.sheetList.map {
             it.copy(isSelected = it.code == item.code)
         }
+    }
+
+    private fun updateButtonLoading(loading: Boolean) {
+        updateUiState(isButtonLoading = loading)
     }
 }

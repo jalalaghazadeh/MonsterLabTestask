@@ -111,7 +111,8 @@ fun SignUpScreenContent(
                 CustomButton(
                     buttonText = createAnAccountText,
                     onClick = onButtonPressed ,
-                    isEnable = state.isButtonEnable
+                    isEnable = state.isButtonEnable,
+                    isLoading = state.isButtonLoading
                 )
             }
         }

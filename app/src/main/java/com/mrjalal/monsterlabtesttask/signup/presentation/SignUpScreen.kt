@@ -20,6 +20,7 @@ import androidx.compose.ui.platform.LocalFocusManager
 import androidx.compose.ui.unit.dp
 import androidx.hilt.navigation.compose.hiltViewModel
 import com.mrjalal.monsterlabtesttask.R
+import com.mrjalal.monsterlabtesttask.core.presentation.widget.BackButtonHandler
 import com.mrjalal.monsterlabtesttask.core.presentation.widget.CustomIcon
 import com.mrjalal.monsterlabtesttask.signup.presentation.widget.HttpResponseBottomSheetContent
 import com.mrjalal.monsterlabtesttask.signup.presentation.widget.SignUpScreenContent
@@ -50,7 +51,14 @@ fun SignUpScreen(
 
     val onDismiss: () -> Unit = { coroutineScope.launch { sheetState.hide() } }
 
-    // todo: backhandler
+    BackButtonHandler {
+        if(sheetState.isVisible) {
+            onDismiss()
+            return@BackButtonHandler
+        }
+
+        onCloseApp()
+    }
 
     LaunchedEffect(key1 = uiState.value.alertMessage) {
         uiState.value.alertMessage?.let {
