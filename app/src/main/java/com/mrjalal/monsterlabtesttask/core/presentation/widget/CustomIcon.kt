@@ -29,7 +29,7 @@ fun CustomIcon(
     Box(
         modifier = Modifier
             .requiredSize(48.dp)
-            .padding(16.dp)
+            .padding(8.dp)
             .then(modifier)
             .clickable { if (onClick != null) onClick() }
     ) {
@@ -37,7 +37,7 @@ fun CustomIcon(
             painter = painterResource(iconId),
             contentDescription = iconDescription,
             tint = tintColor,
-            modifier = Modifier.size(24.dp)
+            modifier = Modifier.requiredSize(24.dp)
         )
     }
 }

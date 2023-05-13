@@ -5,7 +5,7 @@ import com.mrjalal.monsterlabtesttask.signup.data.dataSource.model.SignUpBody
 import com.mrjalal.monsterlabtesttask.signup.data.dataSource.model.SignUpResponse
 import kotlinx.coroutines.delay
 
-object MockSignUpApi : SignUpApi {
+class MockSignUpApi : SignUpApi {
     private var mockResponseCode: Int = 200
 
     override suspend fun signUp(body: SignUpBody): SignUpResponse {

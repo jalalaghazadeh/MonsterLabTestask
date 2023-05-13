@@ -4,6 +4,7 @@ import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.mrjalal.monsterlabtesttask.core.presentation.Screen
 import com.mrjalal.monsterlabtesttask.signup.domain.usecase.SignUpUseCase
+import com.mrjalal.monsterlabtesttask.signup.presentation.model.HttpResponseItem
 import com.mrjalal.monsterlabtesttask.signup.presentation.model.SignUpUiState
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.flow.MutableStateFlow
@@ -34,7 +35,7 @@ class SignUpViewModel @Inject constructor(
 
         viewModelScope.launch {
             val response = signUpUseCase.execute(email, password, 200)
-            if(response.isSuccess) {
+            if (response.isSuccess) {
                 onNavigate(Screen.Home.route)
             } else {
                 // TODO: show snackbar based on Error
@@ -42,9 +43,22 @@ class SignUpViewModel @Inject constructor(
         }
     }
 
+    internal fun onHttpResponseSheetItemPressed(item: HttpResponseItem) {
+        updateUiState(
+            httpCode = item.code,
+            sheetList = updateSheetList(item)
+        )
+    }
+
+    // +++++++++++++++++++++++
+    // mutating ui-state
+    // +++++++++++++++++++++++
+
     private fun updateUiState(
         email: String = _uiState.value.email,
-        password: String = _uiState.value.password
+        password: String = _uiState.value.password,
+        httpCode: Int = _uiState.value.httpCode,
+        sheetList: List<HttpResponseItem> = _uiState.value.sheetList,
     ) {
         val isEmailValid = signUpUseCase.validateEmail(email)
         val isPasswordValid = signUpUseCase.validatePassword(password)
@@ -52,8 +66,16 @@ class SignUpViewModel @Inject constructor(
         val newUiState = _uiState.value.copy(
             email = email,
             password = password,
-            isButtonEnable = isEmailValid && isPasswordValid
+            isButtonEnable = isEmailValid && isPasswordValid,
+            httpCode = httpCode,
+            sheetList = sheetList
         )
         viewModelScope.launch { _uiState.emit(newUiState) }
+    }
+
+    private fun updateSheetList(item: HttpResponseItem): List<HttpResponseItem> {
+        return _uiState.value.sheetList.map {
+            it.copy(isSelected = it.code == item.code)
+        }
     }
 }
