@@ -5,14 +5,18 @@ import androidx.compose.material.ExperimentalMaterialApi
 import androidx.compose.material.ModalBottomSheetLayout
 import androidx.compose.material.ModalBottomSheetValue
 import androidx.compose.material.rememberModalBottomSheetState
+import androidx.compose.material.rememberScaffoldState
 import androidx.compose.material3.ExperimentalMaterial3Api
 import androidx.compose.material3.MaterialTheme
-import androidx.compose.material3.Scaffold
+import androidx.compose.material.Scaffold
 import androidx.compose.material3.TopAppBar
+import androidx.compose.material.SnackbarHost
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.LaunchedEffect
 import androidx.compose.runtime.collectAsState
 import androidx.compose.runtime.rememberCoroutineScope
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.platform.LocalFocusManager
 import androidx.compose.ui.unit.dp
 import androidx.hilt.navigation.compose.hiltViewModel
 import com.mrjalal.monsterlabtesttask.R
@@ -32,6 +36,12 @@ fun SignUpScreen(
 
     val uiState = viewModel.uiState.collectAsState()
 
+    val focusManager = LocalFocusManager.current
+
+    // scaffold
+    val scaffoldState = rememberScaffoldState()
+    val snackbarHostState = scaffoldState.snackbarHostState
+
     // bottom-sheet
     val sheetState = rememberModalBottomSheetState(initialValue = ModalBottomSheetValue.Hidden)
     val coroutineScope = rememberCoroutineScope()
@@ -39,6 +49,14 @@ fun SignUpScreen(
     val onOpenSheet: () -> Unit = { coroutineScope.launch { sheetState.show() } }
 
     val onDismiss: () -> Unit = { coroutineScope.launch { sheetState.hide() } }
+
+    // todo: backhandler
+
+    LaunchedEffect(key1 = uiState.value.alertMessage) {
+        uiState.value.alertMessage?.let {
+            scaffoldState.snackbarHostState.showSnackbar(message = it)
+        }
+    }
 
     ModalBottomSheetLayout(
         sheetState = sheetState,
@@ -76,13 +94,18 @@ fun SignUpScreen(
                     },
                 )
             },
-            contentColor = MaterialTheme.colorScheme.background,
+            scaffoldState = scaffoldState,
+            snackbarHost = { SnackbarHost(hostState = snackbarHostState) },
+            backgroundColor = MaterialTheme.colorScheme.background,
         ) {
             SignUpScreenContent(
                 state = uiState.value,
                 onEmailValueChange = { email -> viewModel.onEmailValueChange(email) },
-                onPasswordValueChange = { password -> viewModel.onEmailValueChange(password) },
-                onButtonPressed = { viewModel.onButtonPressed(onNavigate) },
+                onPasswordValueChange = { password -> viewModel.onPasswordValueChange(password) },
+                onButtonPressed = {
+                    focusManager.clearFocus()
+                    viewModel.onButtonPressed(onNavigate)
+                },
                 paddingValues = it,
             )
         }

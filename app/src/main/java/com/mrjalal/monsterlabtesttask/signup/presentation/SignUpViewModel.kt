@@ -2,6 +2,7 @@ package com.mrjalal.monsterlabtesttask.signup.presentation
 
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
+import com.mrjalal.monsterlabtesttask.core.domain.HttpCodeException
 import com.mrjalal.monsterlabtesttask.core.presentation.Screen
 import com.mrjalal.monsterlabtesttask.signup.domain.usecase.SignUpUseCase
 import com.mrjalal.monsterlabtesttask.signup.presentation.model.HttpResponseItem
@@ -32,13 +33,19 @@ class SignUpViewModel @Inject constructor(
 
         val email = _uiState.value.email
         val password = _uiState.value.password
+        val responseCode = _uiState.value.httpCode
 
         viewModelScope.launch {
-            val response = signUpUseCase.execute(email, password, 200)
+            val response = signUpUseCase.execute(email, password, responseCode)
             if (response.isSuccess) {
                 onNavigate(Screen.Home.route)
             } else {
-                // TODO: show snackbar based on Error
+
+                val message = when((response.exceptionOrNull() as HttpCodeException).errorCode) {
+                    403 -> "You don't have permission to register"
+                    else -> "Something went wrong :("
+                }
+                updateUiState(alertMessage = message)
             }
         }
     }
@@ -59,6 +66,7 @@ class SignUpViewModel @Inject constructor(
         password: String = _uiState.value.password,
         httpCode: Int = _uiState.value.httpCode,
         sheetList: List<HttpResponseItem> = _uiState.value.sheetList,
+        alertMessage: String? = _uiState.value.alertMessage,
     ) {
         val isEmailValid = signUpUseCase.validateEmail(email)
         val isPasswordValid = signUpUseCase.validatePassword(password)
@@ -68,7 +76,8 @@ class SignUpViewModel @Inject constructor(
             password = password,
             isButtonEnable = isEmailValid && isPasswordValid,
             httpCode = httpCode,
-            sheetList = sheetList
+            sheetList = sheetList,
+            alertMessage = alertMessage,
         )
         viewModelScope.launch { _uiState.emit(newUiState) }
     }

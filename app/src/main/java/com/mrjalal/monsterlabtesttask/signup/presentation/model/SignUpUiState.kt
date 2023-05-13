@@ -5,7 +5,8 @@ data class SignUpUiState(
     val password: String = "",
     val isButtonEnable: Boolean = false,
     val httpCode: Int = 200,
-    val sheetList: List<HttpResponseItem> = initSheetData()
+    val sheetList: List<HttpResponseItem> = initSheetData(),
+    val alertMessage: String? = null
 )
 
 fun initSheetData(): List<HttpResponseItem> {

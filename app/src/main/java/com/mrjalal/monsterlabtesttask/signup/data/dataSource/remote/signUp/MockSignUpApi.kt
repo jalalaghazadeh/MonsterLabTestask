@@ -19,8 +19,9 @@ class MockSignUpApi : SignUpApi {
         this.mockResponseCode = code
     }
 
-    private fun getMockResponse(responseCode: Int): SignUpResponse {
+    private suspend fun getMockResponse(responseCode: Int): SignUpResponse {
         if(responseCode != 200) {
+            delay(1000)
             throw HttpCodeException(mockResponseCode)
         }
 

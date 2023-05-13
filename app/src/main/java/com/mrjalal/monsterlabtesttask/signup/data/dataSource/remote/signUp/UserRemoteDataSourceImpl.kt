@@ -15,16 +15,11 @@ class UserRemoteDataSourceImpl @Inject constructor(
         responseCode: Int
     ): Result<String> {
 
-        return try {
-            // set response code to MockSignUpApi
-            signUpApi.setResponseCode(responseCode)
+        signUpApi.setResponseCode(responseCode)
 
-            val body = SignUpBody(email, password)
-            val response = signUpApi.signUp(body)
+        val body = SignUpBody(email, password)
+        val response = signUpApi.signUp(body)
 
-            Result.success(response.token)
-        } catch (e: Exception) {
-            Result.failure(e)
-        }
+        return Result.success(response.token)
     }
 }
