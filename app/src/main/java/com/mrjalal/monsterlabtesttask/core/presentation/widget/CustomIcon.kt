@@ -49,7 +49,7 @@ fun CustomIcon(
     name = "default",
     widthDp = 100,
     heightDp = 100,
-    backgroundColor = 0xffffffff,
+    backgroundColor = 0xfff0f0f0,
     showBackground = true
 )
 @Composable

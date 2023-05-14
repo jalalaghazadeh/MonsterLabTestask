@@ -1,5 +1,6 @@
 package com.mrjalal.monsterlabtesttask.signup.presentation
 
+import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.padding
 import androidx.compose.material.ExperimentalMaterialApi
 import androidx.compose.material.ModalBottomSheetLayout
@@ -15,12 +16,16 @@ import androidx.compose.runtime.Composable
 import androidx.compose.runtime.LaunchedEffect
 import androidx.compose.runtime.collectAsState
 import androidx.compose.runtime.rememberCoroutineScope
+import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.platform.LocalFocusManager
+import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.hilt.navigation.compose.hiltViewModel
 import com.mrjalal.monsterlabtesttask.R
 import com.mrjalal.monsterlabtesttask.core.presentation.widget.BackButtonHandler
+import com.mrjalal.monsterlabtesttask.core.presentation.widget.CustomButton
 import com.mrjalal.monsterlabtesttask.core.presentation.widget.CustomIcon
 import com.mrjalal.monsterlabtesttask.signup.presentation.widget.HttpResponseBottomSheetContent
 import com.mrjalal.monsterlabtesttask.signup.presentation.widget.SignUpScreenContent
@@ -52,7 +57,7 @@ fun SignUpScreen(
     val onDismiss: () -> Unit = { coroutineScope.launch { sheetState.hide() } }
 
     BackButtonHandler {
-        if(sheetState.isVisible) {
+        if (sheetState.isVisible) {
             onDismiss()
             return@BackButtonHandler
         }

@@ -39,9 +39,9 @@ fun CustomTextField(
         containerColor = Color.White,
         cursorColor = MaterialTheme.colorScheme.tertiary,
         errorCursorColor = Color.Red,
-        focusedIndicatorColor = Color.White,
-        unfocusedIndicatorColor = Color.White,
-        errorIndicatorColor = Color.White,
+        focusedIndicatorColor = Color.Transparent,
+        unfocusedIndicatorColor = Color.Transparent,
+        errorIndicatorColor = Color.Transparent,
         focusedLabelColor = MaterialTheme.colorScheme.tertiary,
         errorLabelColor = Color.Red,
         errorSupportingTextColor = Color.Red
@@ -72,9 +72,9 @@ fun CustomTextField(
 
 @Preview(
     name = "default",
-    widthDp = 200,
+    widthDp = 300,
     heightDp = 100,
-    backgroundColor = 0xff1f1f1f,
+    backgroundColor = 0xfff0f0f0,
     showBackground = true
 )
 @Composable
@@ -86,7 +86,10 @@ fun Preview_CustomTextField_Default() {
     CustomTextField(
         value = password,
         onValueChange = { onValueChange(it) },
-        modifier = Modifier.fillMaxWidth().requiredHeight(52.dp),
+        modifier = Modifier
+            .fillMaxWidth()
+            .requiredHeight(52.dp)
+            .padding(horizontal = 20.dp),
         hint = "password",
         keyboardOptions = KeyboardOptions(
             imeAction = ImeAction.Done,
@@ -96,4 +99,5 @@ fun Preview_CustomTextField_Default() {
             onDone = { }
         ),
     )
+
 }

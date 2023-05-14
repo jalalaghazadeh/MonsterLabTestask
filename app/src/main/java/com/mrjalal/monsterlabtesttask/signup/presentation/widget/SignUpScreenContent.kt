@@ -27,10 +27,12 @@ import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.text.input.ImeAction
 import androidx.compose.ui.text.input.KeyboardType
 import androidx.compose.ui.text.style.TextAlign
+import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import com.mrjalal.monsterlabtesttask.R
 import com.mrjalal.monsterlabtesttask.core.presentation.widget.CustomButton
 import com.mrjalal.monsterlabtesttask.core.presentation.widget.CustomTextField
+import com.mrjalal.monsterlabtesttask.signup.presentation.SignUpScreen
 import com.mrjalal.monsterlabtesttask.signup.presentation.model.SignUpUiState
 
 
@@ -110,7 +112,7 @@ fun SignUpScreenContent(
                 // sign up button
                 CustomButton(
                     buttonText = createAnAccountText,
-                    onClick = onButtonPressed ,
+                    onClick = onButtonPressed,
                     isEnable = state.isButtonEnable,
                     isLoading = state.isButtonLoading
                 )
@@ -168,4 +170,40 @@ fun SignUpScreenContent(
             Spacer(modifier = Modifier.requiredSize(150.dp))
         }
     }
+}
+
+@Preview(
+    name = "default",
+    widthDp = 360,
+    heightDp = 700,
+    backgroundColor = 0xfff0f0f0,
+    showBackground = true
+)
+@Composable
+fun Preview_SignUpScreenContent_Default() {
+    SignUpScreenContent(
+        state = SignUpUiState(),
+        onEmailValueChange = {},
+        onPasswordValueChange = {},
+        onButtonPressed = {},
+        paddingValues = PaddingValues(),
+    )
+}
+
+@Preview(
+    name = "default",
+    widthDp = 360,
+    heightDp = 700,
+    backgroundColor = 0xfff0f0f0,
+    showBackground = true
+)
+@Composable
+fun Preview_SignUpScreenContent_withEnabledButton() {
+    SignUpScreenContent(
+        state = SignUpUiState(isButtonEnable = true),
+        onEmailValueChange = {},
+        onPasswordValueChange = {},
+        onButtonPressed = {},
+        paddingValues = PaddingValues(),
+    )
 }

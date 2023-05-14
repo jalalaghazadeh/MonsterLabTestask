@@ -1,8 +1,10 @@
 package com.mrjalal.monsterlabtesttask.core.presentation.widget
 
+import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.Spacer
 import androidx.compose.foundation.layout.fillMaxWidth
+import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.requiredHeight
 import androidx.compose.foundation.layout.size
 import androidx.compose.foundation.layout.width
@@ -83,19 +85,41 @@ fun CustomButton(
 
 @Preview(
     name = "default",
-    widthDp = 200,
-    heightDp = 200,
+    widthDp = 300,
+    heightDp = 150,
     backgroundColor = 0xffffffff,
     showBackground = true
 )
 @Composable
 fun Preview_CustomButton_Default() {
-    CustomButton(
-        buttonText = "Button",
-        iconId = R.drawable.ic_apple,
-        backgroundColor = Color.Blue,
-        tintColor = Color.Black,
-        buttonTextStyle = MaterialTheme.typography.bodyMedium.copy(color = Color.Black),
-        onClick = { /*TODO*/ },
-    )
+    Box(modifier = Modifier.padding(20.dp), contentAlignment = Alignment.Center) {
+        CustomButton(
+            buttonText = "Button",
+            backgroundColor = Color(0xff0492c2),
+            tintColor = Color.Black,
+            buttonTextStyle = MaterialTheme.typography.bodyMedium.copy(color = Color.Black),
+            onClick = { /*TODO*/ },
+        )
+    }
+}
+
+@Preview(
+    name = "default",
+    widthDp = 300,
+    heightDp = 150,
+    backgroundColor = 0xffffffff,
+    showBackground = true
+)
+@Composable
+fun Preview_CustomButton_withIcon() {
+    Box(modifier = Modifier.padding(20.dp), contentAlignment = Alignment.Center) {
+        CustomButton(
+            buttonText = "Button",
+            iconId = R.drawable.ic_apple,
+            backgroundColor = Color(0xff0492c2),
+            tintColor = Color.Black,
+            buttonTextStyle = MaterialTheme.typography.bodyMedium.copy(color = Color.Black),
+            onClick = { /*TODO*/ },
+        )
+    }
 }
