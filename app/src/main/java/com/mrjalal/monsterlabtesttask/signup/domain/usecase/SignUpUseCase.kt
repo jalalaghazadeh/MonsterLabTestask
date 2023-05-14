@@ -5,7 +5,6 @@ import dagger.hilt.android.scopes.ViewModelScoped
 import javax.inject.Inject
 import javax.inject.Singleton
 
-//@Singleton
 @ViewModelScoped
 class SignUpUseCase @Inject constructor(
     private val userRepository: UserRepository,

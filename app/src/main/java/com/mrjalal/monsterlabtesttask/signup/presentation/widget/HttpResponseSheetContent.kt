@@ -15,7 +15,6 @@ import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.unit.dp
 import com.mrjalal.monsterlabtesttask.R
-import com.mrjalal.monsterlabtesttask.core.presentation.widget.CustomIcon
 import com.mrjalal.monsterlabtesttask.signup.presentation.model.HttpResponseItem
 
 @OptIn(ExperimentalFoundationApi::class, ExperimentalMaterial3Api::class)

@@ -10,13 +10,16 @@ import androidx.compose.foundation.layout.size
 import androidx.compose.foundation.layout.width
 import androidx.compose.material3.Button
 import androidx.compose.material3.Icon
+import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.res.painterResource
+import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
+import com.mrjalal.monsterlabtesttask.R
 
 @Composable
 fun CustomIcon(
@@ -40,4 +43,21 @@ fun CustomIcon(
             modifier = Modifier.requiredSize(24.dp)
         )
     }
+}
+
+@Preview(
+    name = "default",
+    widthDp = 100,
+    heightDp = 100,
+    backgroundColor = 0xffffffff,
+    showBackground = true
+)
+@Composable
+fun Preview_CustomIcon_Default() {
+    CustomIcon(
+        iconId = R.drawable.ic_cross,
+        onClick = {},
+        tintColor = MaterialTheme.colorScheme.tertiary,
+        modifier = Modifier.padding(16.dp)
+    )
 }

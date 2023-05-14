@@ -6,7 +6,6 @@ import androidx.compose.ui.text.font.FontFamily
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.unit.sp
 
-// Set of Material typography styles to start with
 val Typography = Typography(
     // button text style
     bodyMedium = TextStyle(
@@ -53,5 +52,4 @@ val Typography = Typography(
         letterSpacing = 0.5.sp,
         color = GreyLight
     )
-
 )

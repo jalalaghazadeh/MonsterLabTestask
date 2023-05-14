@@ -19,7 +19,9 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.text.TextStyle
+import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
+import com.mrjalal.monsterlabtesttask.R
 
 @Composable
 fun CustomButton(
@@ -54,7 +56,7 @@ fun CustomButton(
         enabled = isEnable && !isLoading
     ) {
         Row(verticalAlignment = Alignment.CenterVertically) {
-            if(isLoading) {
+            if (isLoading) {
                 CircularProgressIndicator(
                     modifier = Modifier.size(24.dp),
                     color = tintColor
@@ -77,4 +79,23 @@ fun CustomButton(
             }
         }
     }
+}
+
+@Preview(
+    name = "default",
+    widthDp = 200,
+    heightDp = 200,
+    backgroundColor = 0xffffffff,
+    showBackground = true
+)
+@Composable
+fun Preview_CustomButton_Default() {
+    CustomButton(
+        buttonText = "Button",
+        iconId = R.drawable.ic_apple,
+        backgroundColor = Color.Blue,
+        tintColor = Color.Black,
+        buttonTextStyle = MaterialTheme.typography.bodyMedium.copy(color = Color.Black),
+        onClick = { /*TODO*/ },
+    )
 }

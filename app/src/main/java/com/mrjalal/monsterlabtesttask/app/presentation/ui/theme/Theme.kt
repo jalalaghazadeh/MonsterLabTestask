@@ -29,6 +29,7 @@ private val LightColorScheme = lightColorScheme(
 
     background = GreyLightest,
     surface = GreyLightest,
+
     /* Other default colors to override
     onPrimary = Color.White,
     onSecondary = Color.White,
