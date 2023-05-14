@@ -1,4 +1,4 @@
-package com.mrjalal.monsterlabtesttask.app
+package com.mrjalal.monsterlabtesttask.app.presentation
 
 import androidx.compose.runtime.Composable
 import androidx.navigation.compose.NavHost

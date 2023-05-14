@@ -11,6 +11,7 @@ import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
+import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import com.mrjalal.monsterlabtesttask.signup.presentation.model.HttpResponseItem
 
@@ -40,4 +41,34 @@ fun BottomSheetItem(
         )
         Text(text = item.label, Modifier.padding(start = 16.dp))
     }
+}
+
+@Preview(
+    name = "default",
+    widthDp = 300,
+    heightDp = 60,
+    backgroundColor = 0xfff0f0f0,
+    showBackground = true
+)
+@Composable
+fun Preview_BottomSheetItem_Defaults() {
+    BottomSheetItem(
+        item = HttpResponseItem(label = "item", code = 200, isSelected = false),
+        onPress = {}
+    )
+}
+
+@Preview(
+    name = "default",
+    widthDp = 300,
+    heightDp = 60,
+    backgroundColor = 0xfff0f0f0,
+    showBackground = true
+)
+@Composable
+fun Preview_BottomSheetItem_selected() {
+    BottomSheetItem(
+        item = HttpResponseItem(label = "item", code = 200, isSelected = true),
+        onPress = {}
+    )
 }

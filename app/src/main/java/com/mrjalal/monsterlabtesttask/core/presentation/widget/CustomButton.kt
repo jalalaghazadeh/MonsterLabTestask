@@ -96,8 +96,8 @@ fun Preview_CustomButton_Default() {
         CustomButton(
             buttonText = "Button",
             backgroundColor = Color(0xff0492c2),
-            tintColor = Color.Black,
-            buttonTextStyle = MaterialTheme.typography.bodyMedium.copy(color = Color.Black),
+            tintColor = Color.White,
+            buttonTextStyle = MaterialTheme.typography.bodyMedium,
             onClick = { /*TODO*/ },
         )
     }
