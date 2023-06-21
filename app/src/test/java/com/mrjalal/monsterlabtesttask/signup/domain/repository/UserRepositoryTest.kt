@@ -1,14 +1,13 @@
 package com.mrjalal.monsterlabtesttask.signup.domain.repository
 
 import com.mrjalal.monsterlabtesttask.core.domain.HttpCodeException
+import com.mrjalal.monsterlabtesttask.signup.data.dataSource.remote.signUp.FakeUserRemoteDataSource
 import com.mrjalal.monsterlabtesttask.signup.data.dataSource.remote.signUp.UserRemoteDataSource
-import junit.framework.Assert.assertEquals
-import junit.framework.Assert.assertTrue
+import org.junit.Assert.assertEquals
 import kotlinx.coroutines.runBlocking
+import org.junit.Assert.assertTrue
 import org.junit.Before
 import org.junit.Test
-import org.mockito.Mockito.mock
-import org.mockito.kotlin.whenever
 
 class UserRepositoryTest {
 
@@ -17,37 +16,43 @@ class UserRepositoryTest {
 
     @Before
     fun setup() {
-        userRemoteDataSource = mock(UserRemoteDataSource::class.java)
+        userRemoteDataSource = FakeUserRemoteDataSource()
         userRepository = FakeUserRepository()
     }
 
     @Test
     fun signUp_shouldReturnHttpSuccessCode_whenSuccess() = runBlocking {
-        // Arrange
+        // region Arrange
         val email = "test@example.com"
         val password = "password"
         val responseCode = 200
+        // endregion
 
-        // Act
+        // region Act
         val result = userRepository.signUp(email, password, responseCode)
+        // endregion
 
-        // Assert
+        // region Assert
         assertTrue(result.isSuccess)
         assertEquals(200, result.getOrNull())
+        // endregion
     }
 
     @Test
     fun signUp_shouldReturnException_whenFails() = runBlocking {
-        // Arrange
+        // region Arrange
         val email = "test@example.com"
         val password = "password"
         val responseCode = 403
+        // endregion
 
-        // Act
+        // region Act
         val result = userRepository.signUp(email, password, responseCode)
+        // endregion
 
-        // Assert
+        // region Assert
         assertTrue(result.isFailure)
         assertEquals(403, (result.exceptionOrNull() as HttpCodeException).errorCode)
+        // endregion
     }
 }

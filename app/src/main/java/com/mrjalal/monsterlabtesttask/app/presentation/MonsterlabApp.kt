@@ -1,6 +1,7 @@
 package com.mrjalal.monsterlabtesttask.app.presentation
 
 import androidx.compose.runtime.Composable
+import androidx.navigation.NavHostController
 import androidx.navigation.compose.NavHost
 import androidx.navigation.compose.composable
 import androidx.navigation.compose.rememberNavController
@@ -10,10 +11,9 @@ import com.mrjalal.monsterlabtesttask.signup.presentation.SignUpScreen
 
 @Composable
 fun MonsterLabApp(
+    navController: NavHostController = rememberNavController(),
     onCloseApp: () -> Unit,
 ) {
-
-    val navController = rememberNavController()
 
     val onBack: () -> Unit = { navController.navigateUp() }
     val onNavigateToScreen = { route: String -> navController.navigate(route) }

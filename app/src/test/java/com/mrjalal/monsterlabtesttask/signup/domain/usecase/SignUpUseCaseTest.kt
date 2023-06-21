@@ -1,26 +1,21 @@
 package com.mrjalal.monsterlabtesttask.signup.domain.usecase
 
+import com.mrjalal.monsterlabtesttask.signup.domain.repository.FakeUserRepository
 import com.mrjalal.monsterlabtesttask.signup.domain.repository.UserRepository
-import kotlinx.coroutines.ExperimentalCoroutinesApi
 import kotlinx.coroutines.runBlocking
 import org.junit.Assert.assertEquals
 import org.junit.Before
 import org.junit.Test
-import org.mockito.Mock
-import org.mockito.Mockito.mock
-import org.mockito.Mockito.`when`
 
-@ExperimentalCoroutinesApi
 class SignUpUseCaseTest {
 
     private lateinit var signUpUseCase: SignUpUseCase
 
-    @Mock
     private lateinit var userRepository: UserRepository
 
     @Before
     fun setUp() {
-        userRepository = mock(UserRepository::class.java)
+        userRepository = FakeUserRepository()
         signUpUseCase = SignUpUseCase(userRepository)
     }
 
@@ -48,15 +43,19 @@ class SignUpUseCaseTest {
 
     @Test
     fun execute_shouldReturnsSuccess_whenEmailAndPasswordIsValid() = runBlocking {
+        // region ARRANGE
         val email = "validemail@example.com"
         val password = "validPa33word"
         val responseCode = 200
+        // endregion
 
-        `when`(userRepository.signUp(email, password, responseCode)).thenReturn(Result.success(200))
-
+        // region ACT
         val result = signUpUseCase.execute(email, password, responseCode)
+        // endregion
 
-        assertEquals(Result.success(200), result.getOrNull())
+        // region ASSERT
+        assertEquals(Result.success(200), result)
+        // endregion
     }
 }
 
